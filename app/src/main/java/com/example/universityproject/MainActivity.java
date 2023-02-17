@@ -26,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         Toast.makeText(getApplicationContext(),"On stop Toast",Toast.LENGTH_SHORT).show();
         Log.w(TAG,"ВНИМАНИЕ!");
-        super.onStop();
+        if (isFinishing()){
+            finish();
+        }
+    super.onStop();
     }
 
     @Override
