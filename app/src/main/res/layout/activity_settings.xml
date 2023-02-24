@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,31 +8,44 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        tools:srcCompat="@tools:sample/avatars"
+        />
 
-    <Switch
-        android:id="@+id/switch1"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/optionSwitch4"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Switch" />
+        android:layout_height="@string/sizeOfSwitches"
+        android:layout_below="@+id/optionSwitch3"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="@string/optionSwitchText4" />
 
-    <Switch
-        android:id="@+id/switch6"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/optionSwitch3"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Switch" />
+        android:layout_height="@string/sizeOfSwitches"
+        android:layout_below="@+id/optionSwitch2"
+        android:layout_marginTop="0dp"
+        android:text="@string/optionSwitchText3" />
 
-    <Switch
-        android:id="@+id/switch7"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/optionSwitch2"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Switch" />
+        android:layout_height="@string/sizeOfSwitches"
+        android:layout_below="@+id/optionSwitch1"
+        android:layout_marginTop="0dp"
+        android:text="@string/optionSwitchText2" />
 
-    <Switch
-        android:id="@+id/switch8"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/optionSwitch1"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Switch" />
+        android:layout_height="@string/sizeOfSwitches"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="0dp"
+        android:text="@string/optionSwitchText1" />
 
-</LinearLayout>
+</RelativeLayout>
