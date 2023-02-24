@@ -84,8 +84,4 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void StringOut(View view){
-        Log.i(TAG,"ButtonPressed");
-    }
-
 }
