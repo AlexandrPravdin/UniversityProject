@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:id="@+id/ImageView"
+        android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        tools:srcCompat="@tools:sample/avatars"
-        />
+        android:layout_marginTop="39dp"
+        android:contentDescription="@string/todo"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/settings_icon" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/optionSwitch4"
-        android:layout_width="match_parent"
-        android:layout_height="@string/sizeOfSwitches"
+        android:layout_width="@dimen/width_switches"
+        android:layout_height="@dimen/height_switches"
         android:layout_below="@+id/optionSwitch3"
-        android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:text="@string/optionSwitchText4" />
+        android:text="@string/option_switch_text4" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/optionSwitch3"
-        android:layout_width="match_parent"
-        android:layout_height="@string/sizeOfSwitches"
+        android:layout_width="@dimen/width_switches"
+        android:layout_height="@dimen/height_switches"
         android:layout_below="@+id/optionSwitch2"
         android:layout_marginTop="0dp"
-        android:text="@string/optionSwitchText3" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/option_switch_text3" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/optionSwitch2"
-        android:layout_width="match_parent"
-        android:layout_height="@string/sizeOfSwitches"
+        android:layout_width="@dimen/width_switches"
+        android:layout_height="@dimen/height_switches"
         android:layout_below="@+id/optionSwitch1"
         android:layout_marginTop="0dp"
-        android:text="@string/optionSwitchText2" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/option_switch_text2" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/optionSwitch1"
-        android:layout_width="match_parent"
-        android:layout_height="@string/sizeOfSwitches"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="0dp"
-        android:text="@string/optionSwitchText1" />
+        android:layout_width="@dimen/width_switches"
+        android:layout_height="@dimen/height_switches"
+        android:layout_below="@+id/ImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:text="@string/option_switch_text1" />
 
 </RelativeLayout>

@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">AlexRadio</string>
-    <string name="PlayButtonString">Play</string>
+    <string name="play_button_string">Play</string>
     <string name="todo">TODO</string>
-    <string name="optionSwitchText4">Switch4</string>
-    <string name="optionSwitchText3">Switch3</string>
-    <string name="optionSwitchText2">Switch2</string>
-    <string name="optionSwitchText1">Switch</string>
-    <string name="sizeOfSwitches">50dp</string>
+    <string name="option_switch_text4">Switch4</string>
+    <string name="option_switch_text3">Switch3</string>
+    <string name="option_switch_text2">Switch2</string>
+    <string name="option_switch_text1">Switch</string>
+    <string name="size_of_switches">50dp</string>
+
 
 </resources>
