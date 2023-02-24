@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.example.universityproject'
     compileSdk 33
-
+    buildFeatures {
+        viewBinding true
+    }
     defaultConfig {
         applicationId "com.example.universityproject"
         minSdk 28

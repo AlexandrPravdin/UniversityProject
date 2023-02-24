@@ -13,17 +13,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.universityproject.databinding.ActivityMainBinding;
+
+
+//Музыку сделать при помощи Service
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Buttons";
-    Button playBtn;
+    //Button playBtn;
     TextView txt;
-    ImageButton imgBtn;
+    //ImageButton imgBtn;
 
 
     //Жизненные циклы приложения
-    @Override
+/*    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -35,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
         playBtn.setOnClickListener(listener);
         imgBtn.setOnClickListener(listener);
+
+    }*/
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
+
+        txt = findViewById(R.id.txtView1);
+        binding.playButton.setOnClickListener(listener);
+        binding.settingsButton.setOnClickListener(listener);
     }
 
     @Override
