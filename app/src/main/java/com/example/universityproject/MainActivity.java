@@ -2,9 +2,9 @@ package com.example.universityproject;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -12,15 +12,19 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MyApp";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         Toast.makeText(getApplicationContext(),"On Create",Toast.LENGTH_SHORT).show();
         Log.i(TAG, "Created");
 
 
     }
+
 
     @Override
     protected void onStop() {
@@ -55,5 +59,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Debug msg");
         Toast.makeText(getApplicationContext(),"On Resume",Toast.LENGTH_SHORT).show();
     }
-//maked
+//made
 }

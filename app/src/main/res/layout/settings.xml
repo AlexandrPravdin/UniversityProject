@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Switch" />
+
+    <Switch
+        android:id="@+id/switch6"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Switch" />
+
+    <Switch
+        android:id="@+id/switch7"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Switch" />
+
+    <Switch
+        android:id="@+id/switch8"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Switch" />
+
+</LinearLayout>
