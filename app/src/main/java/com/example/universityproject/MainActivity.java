@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.color.DynamicColors;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //DynamicColors.applyToActivitiesIfAvailable(this);
 
         setContentView(R.layout.activity_main);
         Toast.makeText(getApplicationContext(),"On Create",Toast.LENGTH_SHORT).show();
