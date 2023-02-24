@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MyApp";
+    private static final String TAG = "Buttons";
     Button playBtn;
     TextView txt;
     ImageButton imgBtn;
@@ -32,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         imgBtn = findViewById(R.id.settingsButton);
         playBtn = findViewById(R.id.playButton);
 
-        Toast.makeText(getApplicationContext(), "On Create", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
         playBtn.setOnClickListener(listener);
         imgBtn.setOnClickListener(listener);
     }
 
     @Override
     protected void onStop() {
-        Toast.makeText(getApplicationContext(), "On stop Toast", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Main On stop Toast", Toast.LENGTH_SHORT).show();
         if (isFinishing()) {
             finish();
         }
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Toast.makeText(getApplicationContext(), "On Destroy", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Main On Destroy", Toast.LENGTH_SHORT).show();
         super.onDestroy();
         finish();
 
@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(getApplicationContext(), "On Pause", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Main On Pause", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(), "On Resume", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Main On Resume", Toast.LENGTH_SHORT).show();
     }
 
     //Методы снизу
@@ -74,12 +74,18 @@ public class MainActivity extends AppCompatActivity {
             Intent i;
             if (view.getId() == R.id.playButton) {
                 txt.setText("PlayingRadio");
+                Log.i(TAG,"Play Button Pushed");
             } else if (view.getId() == R.id.settingsButton) {
                 txt.setText("GoToSettings");
+                Log.i(TAG,"Settings Button Pushed");
                 i = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(i);
             }
         }
     };
+
+    public void StringOut(View view){
+        Log.i(TAG,"ButtonPressed");
+    }
 
 }

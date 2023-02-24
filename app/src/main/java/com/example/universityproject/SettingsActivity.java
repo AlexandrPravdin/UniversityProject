@@ -9,7 +9,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Settings On Create",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        Toast.makeText(this,"Settings On Stop",Toast.LENGTH_SHORT).show();
     }
 
     @Override
