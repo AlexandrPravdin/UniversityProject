@@ -2,31 +2,50 @@ package com.example.universityproject;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.color.DynamicColors;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MyApp";
-
+    Button playBtn;
+    TextView txt;
+    ImageButton imgBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //DynamicColors.applyToActivitiesIfAvailable(this);
-
         setContentView(R.layout.activity_main);
+
+        txt = (TextView)findViewById(R.id.txtView1);
+        imgBtn = (ImageButton)findViewById(R.id.settingsButton);
+        playBtn = (Button)findViewById(R.id.playButton);
+
         Toast.makeText(getApplicationContext(),"On Create",Toast.LENGTH_SHORT).show();
         Log.i(TAG, "Created");
-
-
+//        playBtn.setOnClickListener(listener);
+//        imgBtn.setOnClickListener(listener);
     }
 
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.settingsButton){
+                txt.setText("GoToSettings");
+            }
+            else if (view.getId() == R.id.playButton){
+                txt.setText("PlayingRadio");
+            }
+        }
+    };
 
     @Override
     protected void onStop() {
@@ -60,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         Log.wtf(TAG,"wtf");
         Log.d(TAG, "Debug msg");
         Toast.makeText(getApplicationContext(),"On Resume",Toast.LENGTH_SHORT).show();
+        playBtn.setOnClickListener(listener);
+        imgBtn.setOnClickListener(listener);
     }
 //made
 }

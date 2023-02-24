@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">UniversityProject</string>
+    <string name="app_name">AlexRadio</string>
+    <string name="PlayButtonString">Play</string>
+    <string name="todo">TODO</string>
 </resources>
