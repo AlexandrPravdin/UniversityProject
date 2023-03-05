@@ -1,87 +1,79 @@
 package com.example.universityproject;
-
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.universityproject.databinding.ActivityMainBinding;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 //Музыку сделать при помощи Service
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends FragmentActivity {
     private static final String TAG = "Buttons";
-    //Button playBtn;
-    TextView txt;
-    //ImageButton imgBtn;
-
+    TextView txt, textViewName;
 
     //Жизненные циклы приложения
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        txt = findViewById(R.id.txtView1);
-        imgBtn = findViewById(R.id.settingsButton);
-        playBtn = findViewById(R.id.playButton);
-
-        Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
-        playBtn.setOnClickListener(listener);
-        imgBtn.setOnClickListener(listener);
-
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
         Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
 
-        txt = findViewById(R.id.txtView1);
-        binding.playButton.setOnClickListener(listener);
-        binding.settingsButton.setOnClickListener(listener);
+        setContentView(R.layout.activity_main);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        MainFragment Mf = new MainFragment();
+        ft.add(R.id.fragment_main_view, Mf);
+        ft.commit();
+
+
+        /*ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());*/
+        //txt = findViewById(R.id.txtView1);
+        /*binding.playButton.setOnClickListener(listener);
+        binding.settingsButton.setOnClickListener(listener);*/
     }
 
     @Override
     protected void onStop() {
-        Toast.makeText(getApplicationContext(), "Main On stop Toast", Toast.LENGTH_SHORT).show();
+/*        //Toast.makeText(getApplicationContext(), "Main On stop Toast", Toast.LENGTH_SHORT).show();
         if (isFinishing()) {
             finish();
-        }
+        }*/
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Toast.makeText(getApplicationContext(), "Main On Destroy", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Main On Destroy", Toast.LENGTH_SHORT).show();
         super.onDestroy();
         finish();
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(getApplicationContext(), "Main On Pause", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Main On Pause", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(), "Main On Resume", Toast.LENGTH_SHORT).show();
+        //textViewName = findViewById(R.id.PlainTextName);
+        //Bundle arguments = getIntent().getExtras();
+        //String name = arguments.get("NameFromPlainTextToTextVew").toString();
+        //Toast.makeText(getApplicationContext(), "Main On Resume", Toast.LENGTH_SHORT).show();
     }
 
     //Методы снизу
@@ -92,14 +84,33 @@ public class MainActivity extends AppCompatActivity {
             Intent i;
             if (view.getId() == R.id.playButton) {
                 txt.setText("PlayingRadio");
-                Log.i(TAG,"Play Button Pushed");
+                Log.i(TAG, "Play Button Pushed");
             } else if (view.getId() == R.id.settingsButton) {
                 txt.setText("GoToSettings");
-                Log.i(TAG,"Settings Button Pushed");
-                i = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(i);
+                Log.i(TAG, "Settings Button Pushed");
+                i = new Intent(MainActivity.this, SettingsFragment.class);
+                mStartForResult.launch(i);
+
             }
         }
     };
+
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult
+            (new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == RESULT_OK) {
+                                textViewName = findViewById(R.id.textView);
+                                Intent intent = result.getData();
+                                String keyOfName = "Name";
+                                String a = intent.getStringExtra(keyOfName);
+                                Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT);
+                                textViewName.setText(a);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Залогинься дурак", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
 }

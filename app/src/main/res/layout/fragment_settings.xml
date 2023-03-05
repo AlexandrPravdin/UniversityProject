@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/fragment_settings_view">
 
     <ImageView
         android:id="@+id/ImageView"
@@ -50,5 +51,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
         android:text="@string/option_switch_text1" />
+
+    <EditText
+        android:id="@+id/PlainTextName"
+        android:layout_width="@dimen/width_switches"
+        android:layout_height="@dimen/height_switches"
+        android:layout_below="@+id/optionSwitch4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:hint="Enter Your Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/SaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/PlainTextName"
+        android:layout_alignEnd="@+id/PlainTextName"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:text="Save" />
 
 </RelativeLayout>
