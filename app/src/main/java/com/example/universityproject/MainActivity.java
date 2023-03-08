@@ -1,4 +1,5 @@
 package com.example.universityproject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,35 +12,32 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.universityproject.databinding.ActivityMainBinding;
 
 
 //Музыку сделать при помощи Service
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Buttons";
     TextView txt, textViewName;
+    ActivityMainBinding binding;
 
     //Жизненные циклы приложения
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(getApplicationContext(), " Main On Create", Toast.LENGTH_SHORT).show();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        setContentView(R.layout.activity_main);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        MainFragment Mf = new MainFragment();
-        ft.add(R.id.fragment_main_view, Mf);
-        ft.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setReorderingAllowed(true);
+        fragmentTransaction.add(R.id.main_activity_fragment_container, MainFragment.class, null);
+        fragmentTransaction.commit();
 
-
-        /*ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());*/
         //txt = findViewById(R.id.txtView1);
         /*binding.playButton.setOnClickListener(listener);
         binding.settingsButton.setOnClickListener(listener);*/
