@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,15 +27,15 @@ public class MainFragment extends Fragment {
         public void onClick(View v) {
 
             if (v.getId() == R.id.playButton) {
-                binding.txtView1.setText("PlayingRadio");
+                binding.txtView1.setText(R.string.PlayRadioText);
             } else if (v.getId() == R.id.settingsButton) {
                 binding.txtView1.setText("GoToSettings");
 
                 //Сохранность в SaveState
                 Bundle b = new Bundle();
-                b.putString("1", "GoToSettings");
+                b.putString("1", "Pipiska");
                 onSaveInstanceState(b);
-
+                getParentFragmentManager().setFragmentResult("11",b);
                 //Переход с фрагмента на фрагмент
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().
                         beginTransaction().setReorderingAllowed(true).
@@ -52,18 +53,21 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(LOG_ID, "Created");
+        Toast.makeText(getContext(), "MainOnCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d(LOG_ID, "Resumed");
+        Toast.makeText(getContext(), "MainOnResume", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         Log.d(LOG_ID, "onViewStateRestored");
         super.onViewStateRestored(savedInstanceState);
+        Toast.makeText(getContext(), "MainOnVewStateRestored", Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
@@ -72,19 +76,24 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(inflater, container, false);
         binding.settingsButton.setOnClickListener(listener);
         binding.playButton.setOnClickListener(listener);
+        getChildFragmentManager().setFragmentResultListener("22", this, (requestKey, result) -> {
+            String bundle = result.getString("2");
+            Log.i("logs",bundle);
+            binding.textView.setHint(bundle);
+        });
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null) {
+/*        if (savedInstanceState != null) {
             Log.i(LOG_ID, savedInstanceState.getString(LAST_TEXT_ON_THE_SCREEN));
             lastTextThatWasOnTheScreen = savedInstanceState.getString(LAST_TEXT_ON_THE_SCREEN);
         } else {
             lastTextThatWasOnTheScreen = "newView";
         }
-        binding.txtView1.setText(lastTextThatWasOnTheScreen);
+        binding.txtView1.setText(lastTextThatWasOnTheScreen);*/
     }
 
     @Override
@@ -94,6 +103,7 @@ public class MainFragment extends Fragment {
         Log.d(LOG_ID, "onSaveInstanceState");
         Log.i(LOG_ID, outState.getString("1"));
     }
+
 
     @Override
     public void onPause() {
