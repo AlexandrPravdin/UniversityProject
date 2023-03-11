@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 txt.setText("GoToSettings");
                 Log.i(TAG,"Settings Button Pushed");
                 i = new Intent(MainActivity.this, SettingsActivity.class);
+                i.putExtra("1","helloWorld");
                 startActivity(i);
             }
         }
