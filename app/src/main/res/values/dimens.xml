@@ -3,5 +3,6 @@
 
     <dimen name="height_switches">50dp</dimen>
     <dimen name="width_switches">300dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>

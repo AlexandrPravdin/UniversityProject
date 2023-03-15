@@ -33,9 +33,9 @@ public class MainFragment extends Fragment {
 
                 //Сохранность в SaveState
                 Bundle b = new Bundle();
-                b.putString("1", "Pipiska");
-                onSaveInstanceState(b);
-                getParentFragmentManager().setFragmentResult("11",b);
+                b.putString("TxtToSettings", "Pipiska");
+                //onSaveInstanceState(b);
+                getParentFragmentManager().setFragmentResult("ResultToSettingsFragment",b);
                 //Переход с фрагмента на фрагмент
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().
                         beginTransaction().setReorderingAllowed(true).
@@ -76,7 +76,7 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(inflater, container, false);
         binding.settingsButton.setOnClickListener(listener);
         binding.playButton.setOnClickListener(listener);
-        getChildFragmentManager().setFragmentResultListener("22", this, (requestKey, result) -> {
+        getChildFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
             String bundle = result.getString("2");
             Log.i("logs",bundle);
             binding.textView.setHint(bundle);
@@ -94,6 +94,11 @@ public class MainFragment extends Fragment {
             lastTextThatWasOnTheScreen = "newView";
         }
         binding.txtView1.setText(lastTextThatWasOnTheScreen);*/
+        getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
+            String nameTxt = result.getString("TxtToMainFragment");
+            Log.i("logs",nameTxt);
+            binding.textView.setText(nameTxt);
+        });
     }
 
     @Override
