@@ -20,12 +20,13 @@ import com.example.universityproject.databinding.FragmentMainBinding;
 public class MainFragment extends Fragment {
     private final static String LAST_TEXT_ON_THE_SCREEN = "Popa";
     private final static String LOG_ID = "logs";
+    SettingsFragment settingsFragment = new SettingsFragment();
+    ListViewFragment listViewFragment = new ListViewFragment();
     private String lastTextThatWasOnTheScreen;
     private FragmentMainBinding binding;
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             if (v.getId() == R.id.playButton) {
                 binding.txtView1.setText(R.string.PlayRadioText);
             } else if (v.getId() == R.id.settingsButton) {
@@ -35,37 +36,50 @@ public class MainFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putString("TxtToSettings", "Pipiska");
                 //onSaveInstanceState(b);
-                getParentFragmentManager().setFragmentResult("ResultToSettingsFragment",b);
+                getParentFragmentManager().setFragmentResult("ResultToSettingsFragment", b);
                 //Переход с фрагмента на фрагмент
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().
-                        beginTransaction().setReorderingAllowed(true).
-                        setCustomAnimations(R.anim.slide_in, R.anim.base_out,
-                                R.anim.base_in, R.anim.slide_out)
+                        beginTransaction().setReorderingAllowed(true)
+                        .setCustomAnimations(R.anim.slide_in_left, R.anim.base_out,
+                                R.anim.base_in, R.anim.slide_out_left)
                         .replace(R.id.main_activity_fragment_container,
-                                SettingsFragment.class, null)
-                        .addToBackStack("FromSettingsFragment");
+                                settingsFragment, null)
+                        .addToBackStack("ToSettingsFragment");
+                fragmentTransaction.commit();
+            } else if (v.getId() == R.id.listButton) {
+                FragmentTransaction fragmentTransaction = getParentFragmentManager()
+                        .beginTransaction().setReorderingAllowed(true)
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.base_out,
+                                R.anim.base_in, R.anim.slide_out_right)
+                        .replace(R.id.main_activity_fragment_container,
+                                listViewFragment, null)
+                        .addToBackStack("ToListViewFragment");
                 fragmentTransaction.commit();
             }
         }
     };
 
+    public MainFragment() {
+        super(R.layout.fragment_main);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(LOG_ID, "Created");
-        Toast.makeText(getContext(), "MainOnCreate", Toast.LENGTH_SHORT).show();
+        //Log.d(LOG_ID, "Created");
+        //Toast.makeText(getContext(), "MainOnCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(LOG_ID, "Resumed");
-        Toast.makeText(getContext(), "MainOnResume", Toast.LENGTH_SHORT).show();
+        //Log.d(LOG_ID, "Resumed");
+        //Toast.makeText(getContext(), "MainOnResume", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        Log.d(LOG_ID, "onViewStateRestored");
+        //Log.d(LOG_ID, "onViewStateRestored");
         super.onViewStateRestored(savedInstanceState);
         Toast.makeText(getContext(), "MainOnVewStateRestored", Toast.LENGTH_SHORT).show();
     }
@@ -76,9 +90,10 @@ public class MainFragment extends Fragment {
         binding = FragmentMainBinding.inflate(inflater, container, false);
         binding.settingsButton.setOnClickListener(listener);
         binding.playButton.setOnClickListener(listener);
+        binding.listButton.setOnClickListener(listener);
         getChildFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
             String bundle = result.getString("2");
-            Log.i("logs",bundle);
+            Log.i("logs", bundle);
             binding.textView.setHint(bundle);
         });
         return binding.getRoot();
@@ -96,7 +111,7 @@ public class MainFragment extends Fragment {
         binding.txtView1.setText(lastTextThatWasOnTheScreen);*/
         getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
             String nameTxt = result.getString("TxtToMainFragment");
-            Log.i("logs",nameTxt);
+            Log.i("logs", nameTxt);
             binding.textView.setText(nameTxt);
         });
     }

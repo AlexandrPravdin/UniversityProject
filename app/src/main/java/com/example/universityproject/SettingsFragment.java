@@ -18,6 +18,10 @@ public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
 
+    public SettingsFragment(){
+        super(R.layout.fragment_settings);
+    }
+
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
