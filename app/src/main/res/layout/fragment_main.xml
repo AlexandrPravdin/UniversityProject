@@ -49,9 +49,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:textAlignment="center"
         android:layout_width="154dp"
         android:layout_height="25dp"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/listButton"
         app:layout_constraintStart_toEndOf="@+id/settingsButton"
@@ -59,9 +59,9 @@
 
     <TextView
         android:id="@+id/txtView1"
-        android:textAlignment="center"
         android:layout_width="151dp"
         android:layout_height="36dp"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="@+id/textView"

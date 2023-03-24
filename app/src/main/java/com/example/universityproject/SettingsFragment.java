@@ -17,11 +17,6 @@ import com.example.universityproject.databinding.FragmentSettingsBinding;
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
-
-    public SettingsFragment(){
-        super(R.layout.fragment_settings);
-    }
-
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -29,13 +24,17 @@ public class SettingsFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putString("TxtToMainFragment", binding.PlainTextName.getText().toString());
                 FragmentManager manager = getParentFragmentManager();
-                manager.setFragmentResult("ResultToMainFragment",b);
+                manager.setFragmentResult("ResultToMainFragment", b);
                 manager.popBackStack();
                 Log.i("logs", binding.PlainTextName.getText().toString());
 
             }
         }
     };
+
+    public SettingsFragment() {
+        super(R.layout.fragment_settings);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getParentFragmentManager().setFragmentResultListener("ResultToSettingsFragment", this, (requestKey, result) -> {
             String bundle = result.getString("TxtToSettings");
-            Log.i("logs",bundle);
+            Log.i("logs", bundle);
             binding.PlainTextName.setHint(bundle);
         });
 

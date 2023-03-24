@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,12 +25,12 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     private final static String LAST_TEXT_ON_THE_SCREEN = "Popa";
     private final static String LOG_ID = "logs";
+    private final ArrayList<RadioItem> stations = new ArrayList<RadioItem>();
     SettingsFragment settingsFragment = new SettingsFragment();
     ListViewFragment listViewFragment = new ListViewFragment();
-    private final ArrayList<RadioItem> stations = new ArrayList<RadioItem>();
-    private FragmentMainBinding binding;
     RecyclerView recyclerView;
     ListRecycleAdapter adapter;
+    private FragmentMainBinding binding;
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -110,7 +109,7 @@ public class MainFragment extends Fragment {
         };
         setInitialData();
         Log.i("logs", "112");
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ListRecycleAdapter(getContext(), stations, listClickListener);
         recyclerView.setAdapter(adapter);

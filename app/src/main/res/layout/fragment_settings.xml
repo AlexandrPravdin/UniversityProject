@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_settings_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/fragment_settings_view">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/ImageView"
@@ -30,8 +29,8 @@
         android:layout_width="@dimen/width_switches"
         android:layout_height="@dimen/height_switches"
         android:layout_below="@+id/optionSwitch2"
-        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
         android:text="@string/option_switch_text3" />
 
     <androidx.appcompat.widget.SwitchCompat
@@ -39,8 +38,8 @@
         android:layout_width="@dimen/width_switches"
         android:layout_height="@dimen/height_switches"
         android:layout_below="@+id/optionSwitch1"
-        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
         android:text="@string/option_switch_text2" />
 
     <androidx.appcompat.widget.SwitchCompat
