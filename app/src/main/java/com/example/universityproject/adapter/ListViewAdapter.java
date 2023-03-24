@@ -13,21 +13,21 @@ import com.example.universityproject.R;
 import java.util.List;
 
 public class ListViewAdapter extends ArrayAdapter<RadioItem> {
-    private LayoutInflater inflater;
-    private int layout;
-    private List<RadioItem> states;
+    private final LayoutInflater inflater;
+    private final int layout;
+    private final List<RadioItem> states;
 
-    public ListViewAdapter(Context context, int resource,List<RadioItem> states) {
+    public ListViewAdapter(Context context, int resource, List<RadioItem> states) {
         super(context, resource, states);
         this.inflater = LayoutInflater.from(context);
         this.layout = resource;
         this.states = states;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        View view = inflater.inflate(this.layout,parent,false);
-        ImageView radioImage = view.findViewById(R.id.RadioImageView);
-        TextView textView = view.findViewById(R.id.NameOfRadioStation);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = inflater.inflate(this.layout, parent, false);
+        ImageView radioImage = view.findViewById(R.id.radioImageView);
+        TextView textView = view.findViewById(R.id.nameOfRadioStation);
 
         RadioItem state = states.get(position);
 
