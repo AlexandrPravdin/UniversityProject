@@ -17,6 +17,7 @@ public class ListRecycleAdapter extends RecyclerView.Adapter<ListRecycleAdapter.
     private final OnListClickListener onClickListener;
     private final LayoutInflater inflater;
     private final List<RadioItem> items;
+
     ListRecycleAdapter(Context context, List<RadioItem> items, OnListClickListener onClickListener) {
         this.onClickListener = onClickListener;
         this.items = items;

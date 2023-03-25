@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import com.example.universityproject.databinding.FragmentSettingsBinding;
 
@@ -22,12 +22,11 @@ public class SettingsFragment extends Fragment {
         public void onClick(View v) {
             if (v.getId() == binding.SaveButton.getId()) {
                 Bundle b = new Bundle();
-                b.putString("TxtToMainFragment", binding.PlainTextName.getText().toString());
-                FragmentManager manager = getParentFragmentManager();
-                manager.setFragmentResult("ResultToMainFragment", b);
-                manager.popBackStack();
-                Log.i("logs", binding.PlainTextName.getText().toString());
+               b.putString("TxtToMainFragment", binding.PlainTextName.getText().toString());
 
+                Log.i("logs", binding.PlainTextName.getText().toString());
+                Navigation.findNavController(v).getPreviousBackStackEntry().getSavedStateHandle().set("TxtToMainFragment", b);
+                Navigation.findNavController(v).popBackStack();
             }
         }
     };
@@ -46,12 +45,8 @@ public class SettingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getParentFragmentManager().setFragmentResultListener("ResultToSettingsFragment", this, (requestKey, result) -> {
-            String bundle = result.getString("TxtToSettings");
-            Log.i("logs", bundle);
-            binding.PlainTextName.setHint(bundle);
-        });
-
+        String bundle = getArguments().getString("TxtToSettings");
+        binding.PlainTextName.setHint(bundle);
         return binding.getRoot();
     }
 

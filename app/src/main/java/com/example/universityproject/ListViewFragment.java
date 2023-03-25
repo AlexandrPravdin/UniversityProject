@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import com.example.universityproject.adapter.ListViewAdapter;
 import com.example.universityproject.adapter.RadioItem;
@@ -57,9 +57,8 @@ public class ListViewFragment extends Fragment {
                 RadioItem selectedItem = (RadioItem) parent.getItemAtPosition(position);
                 Bundle b = new Bundle();
                 b.putString("TxtToMainFragment", "Радио " + selectedItem.getStationName());
-                FragmentManager manager = getParentFragmentManager();
-                manager.setFragmentResult("ResultToMainFragment", b);
-                manager.popBackStack();
+                Navigation.findNavController(view).getPreviousBackStackEntry().getSavedStateHandle().set("TxtToMainFragment", b);
+                Navigation.findNavController(view).popBackStack();
             }
         };
         stationList.setOnItemClickListener(itemClickListener);

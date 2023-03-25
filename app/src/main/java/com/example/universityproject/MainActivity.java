@@ -3,8 +3,6 @@ package com.example.universityproject;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.universityproject.databinding.ActivityMainBinding;
 
@@ -21,11 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setReorderingAllowed(true);
-        fragmentTransaction.add(R.id.main_activity_fragment_container, MainFragment.class, null);
-        fragmentTransaction.commit();
 
     }
 

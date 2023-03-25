@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,15 +40,14 @@ public class MainFragment extends Fragment {
                 binding.txtView1.setText("GoToSettings");
                 //Сохранность в SaveState
                 Bundle b = new Bundle();
-                b.putString("TxtToSettings", "Pipiska");
-                //onSaveInstanceState(b);
-                getParentFragmentManager().setFragmentResult("ResultToSettingsFragment", b);
-                //Переход с фрагмента на фрагмент
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction().setReorderingAllowed(true).setCustomAnimations(R.anim.slide_in_left, R.anim.base_out, R.anim.base_in, R.anim.slide_out_left).replace(R.id.main_activity_fragment_container, settingsFragment, null).addToBackStack("ToSettingsFragment");
-                fragmentTransaction.commit();
+                if (binding.textView.getText().toString() != "") {
+                    b.putString("TxtToSettings", binding.textView.getText().toString());
+                } else {
+                    b.putString("TxtToSettings", "Pipiska");
+                }
+                Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_settingsFragment, b);
             } else if (v.getId() == R.id.listButton) {
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction().setReorderingAllowed(true).setCustomAnimations(R.anim.slide_in_right, R.anim.base_out, R.anim.base_in, R.anim.slide_out_right).replace(R.id.main_activity_fragment_container, listViewFragment, null).addToBackStack("ToListViewFragment");
-                fragmentTransaction.commit();
+                Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_listViewFragment);
             }
         }
     };
@@ -92,13 +91,11 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (Navigation.findNavController(view).getCurrentBackStackEntry().getSavedStateHandle().get("TxtToMainFragment") != null) {
+            Bundle b = Navigation.findNavController(view).getCurrentBackStackEntry().getSavedStateHandle().get("TxtToMainFragment");
 
-
-        getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
-            String nameTxt = result.getString("TxtToMainFragment");
-            Log.i("logs", nameTxt);
-            binding.textView.setText(nameTxt);
-        });
+            binding.textView.setText(b.getString("TxtToMainFragment"));
+        }
 
         recyclerView = binding.recycleView;
         ListRecycleAdapter.OnListClickListener listClickListener = new ListRecycleAdapter.OnListClickListener() {
