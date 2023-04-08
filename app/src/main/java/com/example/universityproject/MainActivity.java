@@ -3,6 +3,7 @@ package com.example.universityproject;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.universityproject.databinding.ActivityMainBinding;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
     }
+
 
     @Override
     protected void onStop() {

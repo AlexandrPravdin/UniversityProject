@@ -1,5 +1,9 @@
 package com.example.universityproject;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,17 +32,23 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     private final static String LAST_TEXT_ON_THE_SCREEN = "Popa";
     private final static String LOG_ID = "logs";
+    private static final int NOTIFY_ID = 1;
+    private static final int  PERMISSION_REQUEST_CODE= 1;
+    private static String WARNING_ID = "Важные уведомления";
     private final ArrayList<RadioItem> stations = new ArrayList<RadioItem>();
-    SettingsFragment settingsFragment = new SettingsFragment();
-    ListViewFragment listViewFragment = new ListViewFragment();
     RecyclerView recyclerView;
     ListRecycleAdapter adapter;
+    // Идентификатор уведомления
+    private NotificationManager notificationManager;
     private FragmentMainBinding binding;
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.playButton) {
                 binding.txtView1.setText(R.string.PlayRadioText);
+
+                sendNotification("Update info","Are you sure about your app's version?",WARNING_ID, R.drawable.radio_fill0_wght400_grad0_opsz48);
+
             } else if (v.getId() == R.id.settingsButton) {
                 binding.txtView1.setText("GoToSettings");
                 //Сохранность в SaveState
@@ -52,10 +65,10 @@ public class MainFragment extends Fragment {
         }
     };
 
+
     public MainFragment() {
         super(R.layout.fragment_main);
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +109,10 @@ public class MainFragment extends Fragment {
 
             binding.textView.setText(b.getString("TxtToMainFragment"));
         }
+        NotificationChannel channel =
+                new NotificationChannel(WARNING_ID, "Важные уведомления", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager manager = getContext().getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel);
 
         recyclerView = binding.recycleView;
         ListRecycleAdapter.OnListClickListener listClickListener = new ListRecycleAdapter.OnListClickListener() {
@@ -112,14 +129,6 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(LAST_TEXT_ON_THE_SCREEN, outState.getString("1"));
-        Log.d(LOG_ID, "onSaveInstanceState");
-        Log.i(LOG_ID, outState.getString("1"));
-    }
-
 
     @Override
     public void onPause() {
@@ -133,16 +142,41 @@ public class MainFragment extends Fragment {
         Log.d(LOG_ID, "Stopped");
     }
 
+
     @Override
     public void onDestroy() {
         Log.d(LOG_ID, "Destroyed");
         super.onDestroy();
     }
 
+    //Заполнение эрреев
     private void setInitialData() {
         for (int i = 1; i <= 200; i++) {
             stations.add(new RadioItem(i * 2 + "." + i * 3, R.drawable.radio_fill0_wght400_grad0_opsz48));
         }
         Log.i("logs", "setInitalDataCreated");
     }
+
+    void sendNotification(String title, String text, String channel,int drawable){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), channel);
+        builder.setSmallIcon(drawable);
+        builder.setContentTitle(title);
+        builder.setContentText(text);
+        builder.setAutoCancel(true);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getContext());
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            //requirePermition
+
+/*            getActivity().requestPermissions(
+                    new String[] {
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.READ_SMS
+                    },
+                    PERMISSION_REQUEST_CODE);*/
+            Log.i(LOG_ID,"If in");
+            return;
+        }
+        managerCompat.notify(1, builder.build());
+    }
+
 }

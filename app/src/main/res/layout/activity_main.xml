@@ -5,9 +5,7 @@
     android:name=""
     android:id="@+id/main_activity_fragment_container"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-
-    >
+    android:layout_height="fill_parent">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
