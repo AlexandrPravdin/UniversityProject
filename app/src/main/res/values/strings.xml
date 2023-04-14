@@ -8,6 +8,7 @@
     <string name="option_switch_text1">Switch</string>
     <string name="size_of_switches">50dp</string>
     <string name="PlayRadioText">PlayingRadio</string>
+    <string name="WARNING_CHANNEL">Важные уведомления!</string>
 
 
 </resources>
