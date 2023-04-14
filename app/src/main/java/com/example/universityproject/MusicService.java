@@ -1,6 +1,5 @@
 package com.example.universityproject;
 
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -15,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MusicService extends Service {
-    private final String LOG_ID = "service";
     private WindowManager windowManager;
     private View overlayView;
     private TextView textView;
@@ -25,7 +23,6 @@ public class MusicService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    @SuppressLint("InflateParams")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,9 +30,9 @@ public class MusicService extends Service {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         textView = overlayView.findViewById(R.id.textView);
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(LOG_ID,"Before winManger");
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -46,17 +43,14 @@ public class MusicService extends Service {
         params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
         params.y = 100;
 
-        //Запрос разрешения
-        Log.i(LOG_ID,"Before before permission");
+        //Ask for permissions
         if (!Settings.canDrawOverlays(this)) {
-            Log.i(LOG_ID,"in ask permission");
             Intent intent2 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + getPackageName()));
             intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent2);
         } else {
-            // Разрешение уже получено, отобразить баннер
-            Log.i(LOG_ID,"in overlayView");
+            //Show banner
             windowManager.addView(overlayView, params);
         }
 
@@ -72,7 +66,7 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // Удаляем баннер с экрана при завершении сервиса
+        //Deleting service
         if (overlayView != null) {
             windowManager.removeView(overlayView);
         }
