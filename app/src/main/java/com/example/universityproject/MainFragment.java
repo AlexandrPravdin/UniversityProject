@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
         binding.recycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), stations, (item, position) -> binding.textView.setText(item.getStationName())));
         setInitialData();
-        //Buttons
+        //Settings Button
         binding.settingsButton.setOnClickListener(v -> {
             binding.txtView1.setText("GoToSettings");
 
@@ -83,15 +83,15 @@ public class MainFragment extends Fragment {
             }
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_settingsFragment, b);
         });
-
+        //Play Button
         binding.playButton.setOnClickListener(v -> {
             binding.txtView1.setText(R.string.PlayRadioText);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 sendNotification("Update info", "Are you sure about your app's version?", importantChannel.getId(), R.drawable.radio_fill0_wght400_grad0_opsz48);
             }
-            context.startForegroundService(intent);
+            context.startService(intent);
         });
-
+        //List Button
         binding.listButton.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_listViewFragment);
         });

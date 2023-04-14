@@ -9,6 +9,7 @@
     <string name="size_of_switches">50dp</string>
     <string name="PlayRadioText">PlayingRadio</string>
     <string name="WARNING_CHANNEL">Важные уведомления!</string>
+    <string name="hello">Hello</string>
 
 
 </resources>
