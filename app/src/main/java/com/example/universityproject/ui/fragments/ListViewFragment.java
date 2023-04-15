@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.universityproject.adapter.ListViewAdapter;
-import com.example.universityproject.adapter.RadioItem;
+import com.example.universityproject.R;
+import com.example.universityproject.ui.adapters.ListViewAdapter;
+import com.example.universityproject.ui.adapters.RadioItem;
 import com.example.universityproject.databinding.FragmentListviewBinding;
 
 import java.util.ArrayList;

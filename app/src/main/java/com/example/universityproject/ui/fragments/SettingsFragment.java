@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.ui.fragments;
 
 import android.os.Bundle;
 import android.util.Log;

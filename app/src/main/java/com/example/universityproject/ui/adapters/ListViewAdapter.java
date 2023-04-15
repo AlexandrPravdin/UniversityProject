@@ -1,4 +1,4 @@
-package com.example.universityproject.adapter;
+package com.example.universityproject.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

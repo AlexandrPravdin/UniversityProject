@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,12 +6,14 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.example.universityproject.R;
+import com.example.universityproject.ui.activities.MainActivity;
 
 public class MusicService extends Service {
     private WindowManager windowManager;

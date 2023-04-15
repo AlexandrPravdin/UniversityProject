@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.ui.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.universityproject.adapter.RadioItem;
+import com.example.universityproject.R;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ListRecycleAdapter extends RecyclerView.Adapter<ListRecycleAdapter.
     private final LayoutInflater inflater;
     private final List<RadioItem> items;
 
-    ListRecycleAdapter(Context context, List<RadioItem> items, OnListClickListener onClickListener) {
+    public ListRecycleAdapter(Context context, List<RadioItem> items, OnListClickListener onClickListener) {
         this.onClickListener = onClickListener;
         this.items = items;
         this.inflater = LayoutInflater.from(context);
@@ -38,20 +38,16 @@ public class ListRecycleAdapter extends RecyclerView.Adapter<ListRecycleAdapter.
         RadioItem item = items.get(position);
         holder.picView.setImageResource(item.getPictureResource());
         holder.nameView.setText(item.getStationName());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onItemClick(item, position);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onClickListener.onItemClick(item, position));
     }
+
 
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-    interface OnListClickListener {
+    public interface OnListClickListener {
         void onItemClick(RadioItem item, int position);
     }
 

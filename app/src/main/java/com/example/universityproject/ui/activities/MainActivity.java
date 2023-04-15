@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.ui.activities;
 
 import android.os.Bundle;
 

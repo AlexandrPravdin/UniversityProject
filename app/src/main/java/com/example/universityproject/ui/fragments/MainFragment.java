@@ -1,4 +1,4 @@
-package com.example.universityproject;
+package com.example.universityproject.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
@@ -22,7 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.universityproject.adapter.RadioItem;
+import com.example.universityproject.services.MusicService;
+import com.example.universityproject.R;
+import com.example.universityproject.ui.adapters.ListRecycleAdapter;
+import com.example.universityproject.ui.adapters.RadioItem;
 import com.example.universityproject.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
@@ -68,8 +71,8 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Recycle
-        binding.recycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), stations, (item, position) -> binding.textView.setText(item.getStationName())));
+        binding.recycleView.setLayoutManager(new LinearLayoutManager(requireContext())); // (item, position) -> binding.textView.setText(item.getStationName()))
+        binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), stations,((item, position) -> binding.textView.setText(item.getStationName()))));
         setInitialData();
         //Settings Button
         binding.settingsButton.setOnClickListener(v -> {
