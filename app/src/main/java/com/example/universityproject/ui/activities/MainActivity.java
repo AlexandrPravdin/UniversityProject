@@ -4,26 +4,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.universityproject.databinding.ActivityMainBinding;
-
-
-//Музыку сделать при помощи Service
+import com.example.universityproject.R;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
-
-    //Жизненные циклы приложения
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
+        setContentView(R.layout.activity_main);
     }
 }
