@@ -24,7 +24,6 @@ public class SettingsFragment extends Fragment {
         //Get arguments from MainFragment
         String bundle = getArguments().getString("TxtToSettings");
         binding.PlainTextName.setHint(bundle);
-
         return binding.getRoot();
     }
 
@@ -36,7 +35,7 @@ public class SettingsFragment extends Fragment {
             Bundle b = new Bundle();
             b.putString("TxtToMainFragment", binding.PlainTextName.getText().toString());
 
-            Log.i("logs", binding.PlainTextName.getText().toString());
+            Log.i("AAA", binding.PlainTextName.getText().toString());
             Navigation.findNavController(v).getPreviousBackStackEntry().getSavedStateHandle().set("TxtToMainFragment", b);
             Navigation.findNavController(v).popBackStack();
         });
