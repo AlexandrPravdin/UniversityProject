@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,13 +49,33 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //OnCreate
-        context = getContext();
-        intent = new Intent(getActivity(), MusicService.class); // Build the intent for the service
-        stations = new ArrayList<>();
-
         //ViewModel
         dataModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        //Name string observer
+        final Observer<String> nameObserver = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String newName) {
+                Log.i("AAA","In observer ");
+                binding.textView.setText(newName);
+            }
+        };
+        dataModel.getName().observe(this, nameObserver);
+
+        //Station string observer
+        final Observer<String> stationObserver = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String newStation) {
+                Log.i("AAA","In observer");
+                binding.textView2.setText(newStation);
+            }
+        };
+        dataModel.getStation().observe(this,stationObserver);
+
+        //OnCreate
+        context = requireContext();
+        intent = new Intent(getActivity(), MusicService.class); // Build the intent for the service
+        stations = new ArrayList<>();
 
         //Notifications
         importantChannel = new NotificationChannel(getString(R.string.WARNING_CHANNEL), getString(R.string.WARNING_CHANNEL), NotificationManager.IMPORTANCE_DEFAULT);
@@ -72,23 +93,27 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Getting information from settings fragment
+        getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
+            dataModel.getName().setValue(result.getString("TxtToMainFragment"));
+        }
+        );
 
-        //Getting last information
-        binding.textView.setText(dataModel.getName());
-        binding.textView2.setText(dataModel.getStation());
+        //Getting last information from model View
+        binding.textView.setText(dataModel.getName().getValue());
+        binding.textView2.setText(dataModel.getStation().getValue());
 
         //Recycle
         binding.recycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), stations, ((item, position) -> {
-            dataModel.setStation(item.getStationName());
-            binding.textView2.setText(dataModel.getStation());
+            dataModel.getStation().setValue(item.getStationName());
         })));
         setInitialData();
 
         //Settings Button
         binding.settingsButton.setOnClickListener(v -> {
             Bundle b = new Bundle();
-            b.putString("TxtToSettings", dataModel.getName());
+            //b.putString("TxtToSettings", dataModel.getName());
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_settingsFragment, b);
         });
 
@@ -97,7 +122,7 @@ public class MainFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 sendNotification("Update info", "Are you sure about your app's version?", importantChannel.getId(), R.drawable.radio_fill0_wght400_grad0_opsz48);
             }
-            context.startService(intent);
+            dataModel.getName().setValue("1111");
         });
 
         //List Button
@@ -107,13 +132,15 @@ public class MainFragment extends Fragment {
         manager.createNotificationChannel(importantChannel);
     }
 
-    //Заполнение массива
+
+    //Setting array of stations
     private void setInitialData() {
         for (int i = 1; i <= 200; i++) {
             stations.add(new RadioItem(i * 2 + "." + i * 3, R.drawable.radio_fill0_wght400_grad0_opsz48));
         }
     }
 
+    //Sendig notifications from main fragment
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     void sendNotification(String title, String text, String channelId, int drawable) {
         if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

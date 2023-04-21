@@ -2,41 +2,30 @@ package com.example.universityproject.logic.models;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
-    private String name, station;
 
-    public MainViewModel() {
-        Log.i("AAA","VM created");
-        name = "Sasha";
-        station = "0.0";
-    }
+    private MutableLiveData<String> name, station;
 
-    public MainViewModel(String name) {
-        this.name = name;
-    }
 
-    public String getName() {
+/*    public MainViewModel() {
+        name = new MutableLiveData<String>("Sasha");
+        station = new MutableLiveData<String>("0.0");
+    }*/
+
+    public MutableLiveData<String> getName() {
+        if (name == null) {
+            name = new MutableLiveData<String>("Sasha");
+        }
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStation() {
+    public MutableLiveData<String> getStation(){
+        if (station == null) {
+            station = new MutableLiveData<String>("0.0");
+        }
         return station;
-    }
-
-    public void setStation(String station) {
-        this.station = station;
-    }
-
-    @Override
-    protected void onCleared() {
-        Log.e("AAA","VM cleared");
-        super.onCleared();
-
     }
 }
