@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.universityproject.R;
 import com.example.universityproject.ui.adapters.ListViewAdapter;
-import com.example.universityproject.ui.adapters.RadioItem;
+import com.example.universityproject.logic.models.RadioItem;
 import com.example.universityproject.databinding.FragmentListviewBinding;
 
 import java.util.ArrayList;

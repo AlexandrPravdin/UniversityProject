@@ -1,4 +1,4 @@
-package com.example.universityproject.ui.adapters;
+package com.example.universityproject.logic.models;
 
 public class RadioItem {
     private String stationName;

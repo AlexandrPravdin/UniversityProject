@@ -28,9 +28,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.universityproject.R;
 import com.example.universityproject.databinding.FragmentMainBinding;
 import com.example.universityproject.logic.models.MainViewModel;
+import com.example.universityproject.logic.models.RadioItem;
 import com.example.universityproject.services.MusicService;
 import com.example.universityproject.ui.adapters.ListRecycleAdapter;
-import com.example.universityproject.ui.adapters.RadioItem;
 
 import java.util.ArrayList;
 
@@ -53,24 +53,18 @@ public class MainFragment extends Fragment {
         dataModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         //Name string observer
-        final Observer<String> nameObserver = new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable final String newName) {
-                Log.i("AAA","In observer ");
-                binding.textView.setText(newName);
-            }
+        final Observer<String> nameObserver = newName -> {
+            Log.i("AAA", "In observer ");
+            binding.textView.setText(newName);
         };
         dataModel.getName().observe(this, nameObserver);
 
         //Station string observer
-        final Observer<String> stationObserver = new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable final String newStation) {
-                Log.i("AAA","In observer");
-                binding.textView2.setText(newStation);
-            }
+        final Observer<String> stationObserver = newStation -> {
+            Log.i("AAA", "In observer");
+            binding.textView2.setText(newStation);
         };
-        dataModel.getStation().observe(this,stationObserver);
+        dataModel.getStation().observe(this, stationObserver);
 
         //OnCreate
         context = requireContext();
@@ -95,9 +89,12 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //Getting information from settings fragment
         getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
-            dataModel.getName().setValue(result.getString("TxtToMainFragment"));
-        }
+                    dataModel.getName().setValue(result.getString("TxtToMainFragment"));
+                }
         );
+
+        String txtFromRegistration = getArguments().getString("NameToMainGraph");
+        dataModel.getName().setValue(txtFromRegistration);
 
         //Getting last information from model View
         binding.textView.setText(dataModel.getName().getValue());
@@ -113,7 +110,7 @@ public class MainFragment extends Fragment {
         //Settings Button
         binding.settingsButton.setOnClickListener(v -> {
             Bundle b = new Bundle();
-            //b.putString("TxtToSettings", dataModel.getName());
+            b.putString("TxtToSettings", dataModel.getName().getValue());
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_settingsFragment, b);
         });
 

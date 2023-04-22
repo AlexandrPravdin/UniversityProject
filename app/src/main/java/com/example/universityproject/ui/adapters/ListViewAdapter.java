@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.universityproject.R;
+import com.example.universityproject.logic.models.RadioItem;
 
 import java.util.List;
 
