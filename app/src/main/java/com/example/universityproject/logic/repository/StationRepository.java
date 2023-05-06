@@ -1,28 +1,44 @@
 package com.example.universityproject.logic.repository;
 
+import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import com.example.universityproject.data.DataStation;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+
+import com.example.universityproject.data.ItemDao;
+import com.example.universityproject.data.ItemDatabase;
 import com.example.universityproject.data.StorageNameData;
 import com.example.universityproject.logic.models.RadioItem;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StationRepository {
+    private final ItemDao dao;
+    private final LiveData<List<RadioItem>> allItems;
+    private final Context context;
     StorageNameData storageNameData;
+    private ItemDatabase database;
 
-    public StationRepository(Context context) {
-        storageNameData = new StorageNameData(context);
+    public StationRepository(Application application) {
+        context = application.getApplicationContext();
+        database = ItemDatabase.getDatabase(context);
+        dao = ItemDatabase.getDatabase(context).itemDao();
+        allItems = Transformations.map(dao.getAllStations(),
+                entities -> entities.stream()
+                        .map(StorageNameData::toRadioItem)
+                        .collect(Collectors.toList()));
+        // storageNameData = new StorageNameData("Sasha");
     }
 
-    public ArrayList<RadioItem> getRandomData() {
-        Log.i("AAA","In repository" + DataStation.createRandomList().get(0).getStationName());
-        return DataStation.createRandomList();
+    public LiveData<List<RadioItem>> getAllItems() {
+        return allItems;
     }
 
-    public void saveName(String str){
-        storageNameData.saveName(str);
+    public void insert(StorageNameData storageNameData, int pictureResource) {
+        ItemDatabase.databaseWriteExecutor.execute(() -> {
+            dao.insert(storageNameData);
+        });
     }
 }

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataStation {
+
+
     public static ArrayList<RadioItem> createRandomList() {
         ArrayList<RadioItem> stations = new ArrayList<>();
         for (int i = 1; i <= 200; i++) {
