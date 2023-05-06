@@ -39,8 +39,6 @@ public class SettingsFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_mainFragment,b);
 
         });
-
-
     }
 
 }

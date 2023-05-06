@@ -61,10 +61,12 @@ public class MainFragment extends Fragment {
             })));
         };
         dataModel.list.observe(this, listObserver);
+
         //Name string observer
         final Observer<String> nameObserver = newName -> {
             Log.i("AAA", "In observer ");
             binding.textView.setText(newName);
+            dataModel.saveName(newName);
         };
         dataModel.name.observe(this, nameObserver);
 
