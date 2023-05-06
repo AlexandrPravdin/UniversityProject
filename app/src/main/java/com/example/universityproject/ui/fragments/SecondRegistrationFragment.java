@@ -41,9 +41,9 @@ public class SecondRegistrationFragment extends Fragment {
                 Toast.makeText(requireContext(), "Enter the name", Toast.LENGTH_SHORT).show();
             }
             else {
-                Bundle text = new Bundle();
-                text.putString("NameToMainGraph",binding.editTextText.getText().toString());
-                Navigation.findNavController(v).navigate(R.id.action_secondRegistrationFragment2_to_nav_graph,text);
+                Bundle b = new Bundle();
+                b.putString("NameToMainGraph",binding.editTextText.getText().toString());
+                Navigation.findNavController(v).navigate(R.id.action_secondRegistrationFragment2_to_nav_graph,b);
             }
         });
 

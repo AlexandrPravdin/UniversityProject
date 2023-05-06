@@ -31,8 +31,10 @@ import com.example.universityproject.logic.models.MainViewModel;
 import com.example.universityproject.logic.models.RadioItem;
 import com.example.universityproject.services.MusicService;
 import com.example.universityproject.ui.adapters.ListRecycleAdapter;
+import com.example.universityproject.ui.adapters.ListViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -40,9 +42,9 @@ public class MainFragment extends Fragment {
     private NotificationChannel importantChannel;
     private ArrayList<RadioItem> stations;
     private FragmentMainBinding binding;
-    private Intent intent;
-    private Context context;
     private MainViewModel dataModel;
+
+
 
 
     @Override
@@ -52,23 +54,28 @@ public class MainFragment extends Fragment {
         //ViewModel
         dataModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        final Observer<ArrayList<RadioItem>> listObserver = newList -> {
+            Log.i("AAA", "In observer ");
+            binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), newList, ((item, position) -> {
+                dataModel.station.setValue(item.getStationName());
+            })));
+        };
+        dataModel.list.observe(this, listObserver);
         //Name string observer
         final Observer<String> nameObserver = newName -> {
             Log.i("AAA", "In observer ");
             binding.textView.setText(newName);
         };
-        dataModel.getName().observe(this, nameObserver);
+        dataModel.name.observe(this, nameObserver);
 
         //Station string observer
         final Observer<String> stationObserver = newStation -> {
             Log.i("AAA", "In observer");
             binding.textView2.setText(newStation);
         };
-        dataModel.getStation().observe(this, stationObserver);
+        dataModel.station.observe(this, stationObserver);
 
         //OnCreate
-        context = requireContext();
-        intent = new Intent(getActivity(), MusicService.class); // Build the intent for the service
         stations = new ArrayList<>();
 
         //Notifications
@@ -87,30 +94,26 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //Getting information from settings fragment
-        getParentFragmentManager().setFragmentResultListener("ResultToMainFragment", this, (requestKey, result) -> {
-                    dataModel.getName().setValue(result.getString("TxtToMainFragment"));
-                }
-        );
-
-        String txtFromRegistration = getArguments().getString("NameToMainGraph");
-        dataModel.getName().setValue(txtFromRegistration);
-
         //Getting last information from model View
-        binding.textView.setText(dataModel.getName().getValue());
-        binding.textView2.setText(dataModel.getStation().getValue());
+        if (!Objects.equals(getArguments().getString("TxtToMainFragment"), "")) {
+            dataModel.name.setValue(getArguments().getString("TxtToMainFragment"));
+        } else if (!Objects.equals(getArguments().getString("NameToMainGraph"), "")) {
+            dataModel.name.setValue(getArguments().getString("NameToMainGraph"));
+        }
+
+
 
         //Recycle
         binding.recycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        stations = dataModel.list.getValue();
         binding.recycleView.setAdapter(new ListRecycleAdapter(requireContext(), stations, ((item, position) -> {
-            dataModel.getStation().setValue(item.getStationName());
+            dataModel.station.setValue(item.getStationName());
         })));
-        setInitialData();
 
         //Settings Button
         binding.settingsButton.setOnClickListener(v -> {
             Bundle b = new Bundle();
-            b.putString("TxtToSettings", dataModel.getName().getValue());
+            b.putString("TxtToSettings", dataModel.name.getValue());
             Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_settingsFragment, b);
         });
 
@@ -119,7 +122,7 @@ public class MainFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 sendNotification("Update info", "Are you sure about your app's version?", importantChannel.getId(), R.drawable.radio_fill0_wght400_grad0_opsz48);
             }
-            dataModel.getName().setValue("1111");
+            dataModel.name.setValue("1111");
         });
 
         //List Button
@@ -129,15 +132,7 @@ public class MainFragment extends Fragment {
         manager.createNotificationChannel(importantChannel);
     }
 
-
-    //Setting array of stations
-    private void setInitialData() {
-        for (int i = 1; i <= 200; i++) {
-            stations.add(new RadioItem(i * 2 + "." + i * 3, R.drawable.radio_fill0_wght400_grad0_opsz48));
-        }
-    }
-
-    //Sendig notifications from main fragment
+    //Sending notifications from main fragment
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     void sendNotification(String title, String text, String channelId, int drawable) {
         if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

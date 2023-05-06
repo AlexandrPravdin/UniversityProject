@@ -14,14 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.universityproject.R;
 import com.example.universityproject.logic.models.RadioItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListRecycleAdapter extends RecyclerView.Adapter<ListRecycleAdapter.ViewHolder> {
     private final OnListClickListener onClickListener;
-    private final LayoutInflater inflater;
-    private final List<RadioItem> items;
+    private final LayoutInflater inflater; //Занимается разметкой говна и заполнением
+    private ArrayList<RadioItem> items;
 
-    public ListRecycleAdapter(Context context, List<RadioItem> items, OnListClickListener onClickListener) {
+    public ListRecycleAdapter(Context context, ArrayList<RadioItem> items, OnListClickListener onClickListener) {
         this.onClickListener = onClickListener;
         this.items = items;
         this.inflater = LayoutInflater.from(context);
@@ -60,5 +61,10 @@ public class ListRecycleAdapter extends RecyclerView.Adapter<ListRecycleAdapter.
             picView = view.findViewById(R.id.radioImageView);
             nameView = view.findViewById(R.id.nameOfRadioStation);
         }
+    }
+
+    public void updateStationList(ArrayList<RadioItem> list){
+        this.items.clear();
+        this.items = list;
     }
 }

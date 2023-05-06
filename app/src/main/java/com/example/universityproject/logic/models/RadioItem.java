@@ -1,6 +1,8 @@
 package com.example.universityproject.logic.models;
 
-public class RadioItem {
+import androidx.lifecycle.LiveData;
+
+public class  RadioItem extends LiveData<RadioItem> {
     private String stationName;
     private int pictureResource;
 

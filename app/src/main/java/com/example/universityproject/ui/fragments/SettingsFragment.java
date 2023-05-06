@@ -1,7 +1,6 @@
 package com.example.universityproject.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.universityproject.R;
 import com.example.universityproject.databinding.FragmentSettingsBinding;
 
 
@@ -25,6 +25,8 @@ public class SettingsFragment extends Fragment {
         String bundle = getArguments().getString("TxtToSettings");
         binding.PlainTextName.setHint(bundle);
         return binding.getRoot();
+
+
     }
 
     @Override
@@ -34,10 +36,8 @@ public class SettingsFragment extends Fragment {
         binding.SaveButton.setOnClickListener(v -> {
             Bundle b = new Bundle();
             b.putString("TxtToMainFragment", binding.PlainTextName.getText().toString());
+            Navigation.findNavController(v).navigate(R.id.action_settingsFragment_to_mainFragment,b);
 
-            Log.i("AAA", binding.PlainTextName.getText().toString());
-            Navigation.findNavController(v).getPreviousBackStackEntry().getSavedStateHandle().set("TxtToMainFragment", b);
-            Navigation.findNavController(v).popBackStack();
         });
 
 

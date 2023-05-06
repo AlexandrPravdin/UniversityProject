@@ -20,9 +20,17 @@
     <fragment
         android:id="@+id/listViewFragment"
         android:name="com.example.universityproject.ui.fragments.ListViewFragment"
-        android:label="ListViewFragment" />
+        android:label="ListViewFragment" >
+        <action
+            android:id="@+id/action_listViewFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.universityproject.ui.fragments.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
